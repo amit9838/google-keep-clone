@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import {Box,Drawer as MuiDrawer} from '@mui/material';
+import { Box, Drawer as MuiDrawer } from '@mui/material';
 
 
 // Componets
 import HeaderBar from './HeaderBar';
 import NavList from '../NavList';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -31,7 +31,7 @@ const closedMixin = (theme) => ({
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-    zIndex:1201,
+    zIndex: 1201,
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
@@ -64,14 +64,13 @@ const SwipeDrawer = () => {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <>
             <HeaderBar open={open} handleDrawer={handleDrawer} />
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader></DrawerHeader>
                 <NavList open={open} />
             </Drawer>
-
-        </Box>
+        </>
     );
 }
 
