@@ -1,8 +1,8 @@
 import { React, useState,useRef,useContext } from 'react'
-import { Box, TextField, Paper, ClickAwayListener } from '@mui/material'
+import { Box, TextField, ClickAwayListener } from '@mui/material'
 import styled from '@emotion/styled';
-import { borderRadius } from '@mui/system';
 import { DataContext } from '../context/Dataprovider';
+import {v4 as uuid} from 'uuid'
 
 
 const Container = styled(Box)`
@@ -16,12 +16,19 @@ const Container = styled(Box)`
   `;
 
 
+  const note = {
+    id : '',
+    title : '',
+    description : ''
+}
+
 
 //   boxShadow:'0 1px 2px 0 rgb(60 64 67/ 30%), 0 2px 6px 2px rgb(60 64 70 15%)' 
 function Form() {
     const [showTextField, setShowTextField] = useState(false);
+    const [addNote, setAddNote] = useState({...note, id:uuid()})
 
-    const {notes,SetNotes} = useContext(DataContext);
+    const {setNotes} = useContext(DataContext);
 
     const FormRef = useRef()
 
@@ -34,6 +41,16 @@ function Form() {
     const handleClickAway = () => {
         setShowTextField(false)
         FormRef.current.style.minHeight='2rem';
+
+        setAddNote({...note,id:uuid()})
+        if(addNote.title || addNote.description) {
+            setNotes(x=> [...x,addNote])
+        } 
+    }
+
+    const handleTextChange= (e) =>{
+        let newNote = { ...addNote, [e.target.name]: e.target.value}
+        setAddNote(newNote)
     }
 
     return (
@@ -47,8 +64,11 @@ function Form() {
                             placeholder='Title'
                             InputProps={{ disableUnderline: true }}
                             style={{ marginBottom: '.2rem' }}
-                        />
-                    }
+                            name = "title"
+                            onChange = {handleTextChange}
+                            value = {addNote.title}
+                            />
+                        }
 
                     <TextField
                         onClick={handleTextFieldClick}
@@ -56,7 +76,10 @@ function Form() {
                         placeholder='Take a note...'
                         InputProps={{ disableUnderline: true}}
                         multiline
-                    />
+                        name = "description"
+                        onChange = {handleTextChange}
+                        value = {addNote.description}
+                        />
                 </div>
             </ClickAwayListener>
             {/* </Box>  */}

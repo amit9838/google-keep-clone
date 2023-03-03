@@ -17,7 +17,7 @@ function Home() {
         <SwipeDrawer />
         <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 6 }}>
             <Form />
-          {/* <Notes /> */}
+          <Notes />
         </Box>
       </Box>
     </div>

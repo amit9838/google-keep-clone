@@ -1,8 +1,21 @@
-import React from 'react'
+import NoteItem from './NoteItem';
+import { Grid } from '@mui/material';
+import React, { useContext } from 'react'
+import { DataContext } from '../context/Dataprovider';
+
 
 function Notes() {
+  const { notes } = useContext(DataContext);
   return (
-    <div>Notsdvfdsnfgvfsdjgkdsgkhhslkdes</div>
+    <>
+      <Grid container>
+        {notes.map(note => (
+          <Grid item key={note.id}>
+            <NoteItem  note={note}/>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   )
 }
 
