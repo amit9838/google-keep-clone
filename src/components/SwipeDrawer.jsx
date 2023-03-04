@@ -5,7 +5,7 @@ import { Box, Drawer as MuiDrawer } from '@mui/material';
 
 // Componets
 import HeaderBar from './HeaderBar';
-import NavList from '../NavList';
+import NavList from './NavList';
 
 const drawerWidth = 220;
 

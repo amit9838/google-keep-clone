@@ -1,14 +1,14 @@
+import { useContext, useEffect, useState,useRef } from 'react';
 import styled from '@emotion/styled'
-import { Card, CardContent, CardActions, IconButton, Paper, Typography } from '@mui/material'
-import { useState } from 'react'
-import { grey,red } from '@mui/material/colors';
-import { DeleteOutlined, ArchiveOutlined, MoreVertOutlined,ColorLensOutlined } from '@mui/icons-material';
-import { minHeight } from '@mui/system';
+import { Card, CardContent, CardActions, IconButton, Paper, Typography, Tooltip } from '@mui/material'
+import { grey, red } from '@mui/material/colors';
+import { DeleteOutlined, ArchiveOutlined, UnarchiveOutlined,RestoreFromTrashOutlined } from '@mui/icons-material';
 import FadeMenu from './FadeMenu';
 import Background from './Background';
+import { DataContext } from '../context/Dataprovider';
+
 
 const NoteCard = styled(Card)`
-    
     min-width:15rem;
     max-width:20rem;
     margin:.2rem .2rem;
@@ -18,39 +18,108 @@ const NoteCard = styled(Card)`
     :hover {
         box-shadow:0 0 5px #e0e0e0;
         border:1px solid #a5a5a5;
-
-    }
-    
-    
+    }  
 `;
 
 
 function NoteItem({ note }) {
     const [hovered, setHovered] = useState(false);
     const [col, setCol] = useState(note.background)
+    const { notes,setNotes,updateNotes } = useContext(DataContext);
+    const hideCard = useRef()
 
-
-    let menulist = ['Delete Permanently','Share']
+    let menulist = ['Delete Permanently', 'Share']
     let CardColor = '#e0e0f0'
+
+
+    const handleArchiveClick = () => {
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id === note.id) {
+                notes[i].status = 'archive';
+                note.status = 'archive';
+                setNotes(notes)
+                setHovered(false);
+                updateNotes();
+                hideCard.current.style.display='none';
+                break;
+            }
+        }
+    }
+    const handleUnarchiveClick = () => {
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id === note.id) {
+                notes[i].status = 'active';
+                note.status = 'active';
+                setNotes(notes)
+                setHovered(false);
+                updateNotes();
+                hideCard.current.style.display='none';
+                break;
+            }
+        }
+    }
+
+    const handleTrashClick = () => {
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id === note.id) {
+                notes[i].status = 'trash';
+                note.status = 'trash';
+                setNotes(notes)
+                setHovered(false);
+                updateNotes();
+                hideCard.current.style.display='none';  
+                break;
+            }
+        }
+    }
+    const handleUntrashClick = () => {
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id === note.id) {
+                notes[i].status = 'active';
+                note.status = 'active';
+                setNotes(notes)
+                setHovered(false);
+                updateNotes();
+                hideCard.current.style.display='none';  
+                break;
+            }
+        }
+    }
 
     // console.log(note)
     return (
         <>
-            <NoteCard  className='NoteCard' onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} sx={{backgroundColor:note.background}}>
-                <CardContent sx={{padding:'.5rem .8rem'}}>
-                    <Typography variant='h6' sx={{fontSize: "1rem", fontFamily: 'Inter', fontWeight: '500', color: grey[900] }}>{note.title}</Typography>
+            <NoteCard ref={hideCard} className='NoteCard' onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} sx={{ backgroundColor: note.background }}>
+                <CardContent sx={{ padding: '.5rem .8rem' }}>
+                    <Typography variant='h6' sx={{ fontSize: "1rem", fontFamily: 'Inter', fontWeight: '500', color: grey[900] }}>{note.title}</Typography>
                     <Typography sx={{ fontSize: ".8rem", color: grey[800], fontFamily: 'Inter', fontWeight: '400' }} variant='h6'>{note.description}</Typography>
 
                 </CardContent>
                 <CardActions sx={{ minHeight: "2rem" }}>
                     {hovered && <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                         <div className='left'>
-                            <IconButton size='small'><DeleteOutlined fontSize='small' /> </IconButton>
-                            <IconButton size='small'><ArchiveOutlined fontSize='small' /> </IconButton>
-                            <Background note = {note} setCol={setCol} setHovered={setHovered}/>
+                           
+                            {note.status==='archive'?
+                            <Tooltip title="Unarchive">
+                                <IconButton size='small' onClick={handleUnarchiveClick} ><UnarchiveOutlined fontSize='small' /> </IconButton>
+                            </Tooltip>
+                            :
+                            <Tooltip title="Archive">
+                                <IconButton size='small' onClick={handleArchiveClick} ><ArchiveOutlined fontSize='small' /> </IconButton>
+                            </Tooltip>}
+                            <Background note={note} setCol={setCol} setHovered={setHovered} />
+                            {note.status==='trash'?
+                            <Tooltip title="Restore">
+                                <IconButton size='small' onClick={handleUntrashClick} ><RestoreFromTrashOutlined fontSize='small' /> </IconButton>
+                            </Tooltip>
+                            :
+                            <Tooltip title="Move To Trash">
+                                <IconButton size='small' onClick={handleTrashClick} ><DeleteOutlined fontSize='small' /> </IconButton>
+                            </Tooltip>}
+
                         </div>
                         <div className='right'>
-                            <FadeMenu menulist = {menulist} setHovered={setHovered} />
+                            <FadeMenu menulist={menulist} setHovered={setHovered} note={note} hideCard={hideCard} />
                         </div>
                     </div>}
                 </CardActions>

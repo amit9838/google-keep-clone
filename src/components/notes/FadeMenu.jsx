@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  {useContext,useEffect,useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,23 +6,42 @@ import Fade from '@mui/material/Fade';
 import { IconButton, MenuList } from '@mui/material';
 import { MoreVertOutlined } from '@mui/icons-material';
 import styled from '@emotion/styled';
+import { DataContext } from '../context/Dataprovider';
 
 
 const MenuCus = styled(Menu)`
     box-shadow:0 0 5px;
 `;
 
-export default function FadeMenu({ menulist,setHovered }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export default function FadeMenu({ menulist,setHovered,note,hideCard }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const {notes, setNotes,updateNotes } = useContext(DataContext);
+
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-        setAnchorEl(null);
         setHovered(false);
+        setAnchorEl(null);
     };
-
+    
+    
+    const handleDeletePermanently=()=> {
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].id === note.id) {
+                notes.splice(i, 1);
+                hideCard.current.style.display='none';  
+                setNotes(notes);
+                break;
+            }
+        }
+        setHovered(false);
+        setAnchorEl(null);
+        updateNotes();
+    }
+    
     return (
         <div>
             <IconButton
@@ -47,8 +66,8 @@ export default function FadeMenu({ menulist,setHovered }) {
                 size="small"
             >
                 <MenuList dense disablePadding={true} boxShadow={1} >
-                    <MenuItem onClick={handleClose} sx={{ fontFamily: 'Inter' }}>Delete Permantly</MenuItem>
-                    <MenuItem onClick={handleClose} sx={{ fontFamily: 'Inter' }}>Change Color</MenuItem>
+                    <MenuItem onClick={handleDeletePermanently} sx={{ fontFamily: 'Inter' }}>Delete Permantly</MenuItem>
+                    <MenuItem onClick={handleClose} sx={{ fontFamily: 'Inter' }}>Share</MenuItem>
                 </MenuList>
             </MenuCus>
         </div>

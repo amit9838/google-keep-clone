@@ -16,10 +16,12 @@ const Container = styled(Box)`
   `;
 
 
-  const note = {
+const note = {
     id : '',
     title : '',
-    description : ''
+    description : '',
+    background : '',
+    status : 'active',
 }
 
 
