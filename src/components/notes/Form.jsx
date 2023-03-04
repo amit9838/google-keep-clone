@@ -57,7 +57,7 @@ function Form() {
         <Container>
             {/* <Box sx={{display:'flex', flexDirection:'column', minWidth:'25rem', boxShadow:'0 1px 2px 0 rgb(60 64 67/ 30%)', borderRadius:'.5rem', padding :'1rem 2rem' }}>  */}
             <ClickAwayListener onClickAway={handleClickAway}>
-                <div ref = {FormRef} style={{ display: 'flex', flexDirection: 'column', minWidth: '28rem', padding: '.3rem 1rem', borderRadius:'.5rem',boxShadow:'0 1px 2px 0 rgb(60 64 67/ 30%)' }}>
+                <div ref = {FormRef} style={{ display: 'flex', flexDirection: 'column', minWidth: '30rem', padding: '.3rem 1rem',margin:'1rem 0rem' , borderRadius:'.5rem',boxShadow:'0 2px 2px 0 rgb(60 64 67/ 20%), 0px 0px 6px rgb(40 40 45/ 15%)' }}>
                     {showTextField &&
                         <TextField
                             variant="standard"
@@ -67,6 +67,8 @@ function Form() {
                             name = "title"
                             onChange = {handleTextChange}
                             value = {addNote.title}
+                            sx={[{fontFamily:'Inter'},()=>({'&::placeholder':{color:'red'}})]}
+
                             />
                         }
 
@@ -79,6 +81,7 @@ function Form() {
                         name = "description"
                         onChange = {handleTextChange}
                         value = {addNote.description}
+                        sx={[{fontFamily:'Inter'},()=>({'&::placeholder':{color:'red'}}),()=>({'&::-webkit-input-placeholder ':{color:'red'}}) ]}
                         />
                 </div>
             </ClickAwayListener>
