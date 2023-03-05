@@ -27,7 +27,6 @@ function NavList({ open }) {
     }, [])
     
 
-
     return (
         <List sx={{marginTop:".5rem"}}>
             {navList.map((item) => (

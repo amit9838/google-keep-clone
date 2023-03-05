@@ -31,14 +31,13 @@ function Form() {
     const [showTextField, setShowTextField] = useState(false);
     const [addNote, setAddNote] = useState({ ...note, id: uuid() })
 
-    const { setNotes } = useContext(DataContext);
+    const { setNotes,updateNotes } = useContext(DataContext);
     
     const FormRef = useRef()
 
     const handleTextFieldClick = () => {
         setShowTextField(true);
         FormRef.current.style.minHeight = '4.5rem';
-        // console.log(FormRef.current)
     }
 
     const handleClickAway = () => {
@@ -47,7 +46,7 @@ function Form() {
 
         setAddNote({ ...note, id: uuid() })
         if (addNote.title || addNote.description) {
-            setNotes(x => [...x, addNote])
+            setNotes(x => [...x, addNote]);
         }
     }
 

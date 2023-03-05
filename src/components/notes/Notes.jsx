@@ -5,7 +5,7 @@ import { DataContext } from '../context/Dataprovider';
 
 
 function Notes() {
-  const { notes,setNotes } = useContext(DataContext);
+  const { notes } = useContext(DataContext);
   
   return (
     <>    

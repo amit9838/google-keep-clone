@@ -1,4 +1,4 @@
-import { useContext, useState,useRef } from 'react';
+import { useContext, useState,useRef,useEffect } from 'react';
 import styled from '@emotion/styled'
 import { Card, CardContent, CardActions, IconButton, Typography, Tooltip } from '@mui/material'
 import { grey } from '@mui/material/colors';
@@ -9,8 +9,8 @@ import { DataContext } from '../context/Dataprovider';
 
 
 const NoteCard = styled(Card)`
-    min-width:15rem;
-    max-width:20rem;
+    min-width:14rem;
+    max-width:18rem;
     margin:.2rem .2rem;
     box-shadow:none;
     border:1px solid #e0e0e0;
@@ -30,13 +30,17 @@ function NoteItem({ note }) {
 
     let menulist = ['Delete Permanently', 'Share']
 
+    useEffect(() => {
+    updateNotes();
+    }, [])
+    
+
     const handleArchiveClick = () => {
         for (let i = 0; i < notes.length; i++) {
             if (notes[i].id === note.id) {
                 notes[i].status = 'archive';
                 note.status = 'archive';
                 setNotes(notes)
-                // setHovered(false);
                 updateNotes();
                 hideCard.current.style.display='none';
                 break;
@@ -49,7 +53,6 @@ function NoteItem({ note }) {
                 notes[i].status = 'active';
                 note.status = 'active';
                 setNotes(notes)
-                // setHovered(false);
                 updateNotes();
                 hideCard.current.style.display='none';
                 break;
@@ -63,7 +66,6 @@ function NoteItem({ note }) {
                 notes[i].status = 'trash';
                 note.status = 'trash';
                 setNotes(notes)
-                // setHovered(false);
                 updateNotes();
                 hideCard.current.style.display='none';  
                 break;
@@ -76,7 +78,6 @@ function NoteItem({ note }) {
                 notes[i].status = 'active';
                 note.status = 'active';
                 setNotes(notes)
-                // setHovered(false);
                 updateNotes();
                 hideCard.current.style.display='none';  
                 break;

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import {
-  BrowserRouter as 
   Routes,
   Route
 } from "react-router-dom";
@@ -15,14 +14,11 @@ import Form from './notes/Form';
 import Trash from './notes/Trash';
 
 
-
-
 function Home() {
   const location = useLocation()
 
   return (
     <div>
-
       <Box sx={{ display: 'flex' }}>
         <SwipeDrawer />
         <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 6 }}>

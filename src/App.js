@@ -3,8 +3,6 @@ import DataProvider from './components/context/Dataprovider';
 import Home from './components/Home';
 import {
   BrowserRouter as Router,
-  Routes,
-  Route
 } from "react-router-dom";
 
 
@@ -13,7 +11,7 @@ function App() {
     <>
     <DataProvider>
       <Router>
-      <Home/>
+        <Home/>
       </Router>
     </DataProvider>
     </>
