@@ -1,0 +1,17 @@
+.form_div{
+    min-width: 30rem;
+    width: 10rem;
+  }
+
+  .active {
+    border-radius:0 2rem 2rem 0;
+    background-color:#feefc3;
+  }
+
+  @media only screen and (max-width: 768px ) {
+    .form_div{
+        min-width: 12rem;
+        width: 13rem;
+      }
+    
+  }

@@ -1,5 +1,4 @@
-import  {useContext,useEffect,useState} from 'react';
-import Button from '@mui/material/Button';
+import  {useContext,useState} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
@@ -13,7 +12,7 @@ const MenuCus = styled(Menu)`
     box-shadow:0 0 5px;
 `;
 
-export default function FadeMenu({ menulist,setHovered,note,hideCard }) {
+export default function FadeMenu({ menulist,note,hideCard }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const {notes, setNotes,updateNotes } = useContext(DataContext);
 
@@ -23,7 +22,7 @@ export default function FadeMenu({ menulist,setHovered,note,hideCard }) {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-        setHovered(false);
+        // setHovered(false);
         setAnchorEl(null);
     };
     
@@ -37,7 +36,7 @@ export default function FadeMenu({ menulist,setHovered,note,hideCard }) {
                 break;
             }
         }
-        setHovered(false);
+        // setHovered(false);
         setAnchorEl(null);
         updateNotes();
     }
@@ -65,7 +64,7 @@ export default function FadeMenu({ menulist,setHovered,note,hideCard }) {
                 TransitionComponent={Fade}
                 size="small"
             >
-                <MenuList dense disablePadding={true} boxShadow={1} >
+                <MenuList dense disablePadding={true} >
                     <MenuItem onClick={handleDeletePermanently} sx={{ fontFamily: 'Inter' }}>Delete Permantly</MenuItem>
                     <MenuItem onClick={handleClose} sx={{ fontFamily: 'Inter' }}>Share</MenuItem>
                 </MenuList>

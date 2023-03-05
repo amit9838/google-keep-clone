@@ -1,6 +1,6 @@
-import * as React from 'react';
+import  React, {useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Drawer as MuiDrawer } from '@mui/material';
+import { Drawer as MuiDrawer } from '@mui/material';
 
 
 // Componets
@@ -56,12 +56,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const SwipeDrawer = () => {
     // const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(false);
 
     const handleDrawer = () => {
         setOpen(prevState => !prevState);
     };
 
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+           (navigator.maxTouchPoints > 0) ||
+           (navigator.msMaxTouchPoints > 0));
+      }
+
+      useEffect(() => {
+        if(!isTouchDevice()){
+            setOpen(true);
+        }
+    }, [])
 
     return (
         <>

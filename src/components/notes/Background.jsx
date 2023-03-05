@@ -1,14 +1,11 @@
-import  {useContext,useEffect,useState} from 'react';
+import  {useContext,useState} from 'react';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Card, CardContent, IconButton, Tooltip } from '@mui/material';
+import { Card, IconButton, Tooltip } from '@mui/material';
 import { ColorLensOutlined, Circle,CheckCircle,CircleOutlined,CheckCircleOutlineOutlined } from '@mui/icons-material'
 import { DataContext } from '../context/Dataprovider';
 
 
 const colors = ['#E96479', '#ECF2FF', '#EDF1D6', '#7DB9B6', '#FFEBB7', '#D8D9CF', '#B97A95'];
-// const colors = [{ id: 1, color: '#E96479' }, { id: 2, color: '#ECF2FF' }, { id: 2, color: '#EDF1D6' }];
 
 export default function Background({note,setCol,setHovered}) {
   const {notes, setNotes,updateNotes } = useContext(DataContext);

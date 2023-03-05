@@ -1,10 +1,11 @@
 import React from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import {
-  BrowserRouter as Router,
+  BrowserRouter as 
   Routes,
   Route
 } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // Components
 import SwipeDrawer from './SwipeDrawer';
@@ -17,21 +18,23 @@ import Trash from './notes/Trash';
 
 
 function Home() {
+  const location = useLocation()
+
   return (
     <div>
-      <Router>
-        <Box sx={{ display: 'flex' }}>
-          <SwipeDrawer />
-          <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 6 }}>
-            <Form />
-            <Routes>
-              <Route path="/" element={<Notes />}></Route>
-              <Route path="/archives" element={<Archives />}></Route>
-              <Route path="/trash" element={<Trash />}></Route>
-            </Routes>
-          </Box>
+
+      <Box sx={{ display: 'flex' }}>
+        <SwipeDrawer />
+        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 6 }}>
+          {location.pathname === '/' && <Form />}
+          <Routes>
+            <Route path="/" element={<Notes />}></Route>
+            <Route path="/archives" element={<Archives />}></Route>
+            <Route path="/trash" element={<Trash />}></Route>
+          </Routes>
         </Box>
-      </Router>
+      </Box>
+
     </div>
   )
 }

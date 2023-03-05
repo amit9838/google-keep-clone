@@ -1,6 +1,6 @@
 import NoteItem from './NoteItem';
 import { Grid } from '@mui/material';
-import React, { useContext,useState,useEffect } from 'react'
+import React, { useContext } from 'react'
 import { DataContext } from '../context/Dataprovider';
 
 

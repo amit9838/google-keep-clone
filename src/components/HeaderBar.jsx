@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import {AppBar ,Toolbar, Typography, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from './Google-keep-logo1.png'
