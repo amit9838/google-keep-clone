@@ -97,26 +97,26 @@ function NoteItem({ note }) {
                     <Typography sx={{ fontSize: ".8rem", color: grey[800], fontFamily: 'Inter', fontWeight: '400' }} variant='h6'>{note.description}</Typography>
 
                 </CardContent>
-                <CardActions sx={{ minHeight: "2rem" }}>
+                <CardActions sx={{ minHeight: "2rem" , borderTop:'1px solid lightgrey' ,padding:'.1rem .1rem'}} >
                     {hovered && <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                         <div className='left'>
                            
                             {note.status==='archive'?
                             <Tooltip title="Unarchive">
-                                <IconButton size='small' onClick={handleUnarchiveClick} ><UnarchiveOutlined fontSize='small' /> </IconButton>
+                                <IconButton size='normal' onClick={handleUnarchiveClick} ><UnarchiveOutlined fontSize='' /> </IconButton>
                             </Tooltip>
                             :
                             <Tooltip title="Archive">
-                                <IconButton size='small' onClick={handleArchiveClick} ><ArchiveOutlined fontSize='small' /> </IconButton>
+                                <IconButton size='normal' onClick={handleArchiveClick} ><ArchiveOutlined fontSize='' /> </IconButton>
                             </Tooltip>}
                             <Background note={note} setCol={setCol} setHovered={setHovered} />
                             {note.status==='trash'?
                             <Tooltip title="Restore">
-                                <IconButton size='small' onClick={handleUntrashClick} ><RestoreFromTrashOutlined fontSize='small' /> </IconButton>
+                                <IconButton size='normal' onClick={handleUntrashClick} ><RestoreFromTrashOutlined fontSize='normal' /> </IconButton>
                             </Tooltip>
                             :
                             <Tooltip title="Move To Trash">
-                                <IconButton size='small' onClick={handleTrashClick} ><DeleteOutlined fontSize='small' /> </IconButton>
+                                <IconButton size='normal' onClick={handleTrashClick} ><DeleteOutlined fontSize='normal' /> </IconButton>
                             </Tooltip>}
 
                         </div>

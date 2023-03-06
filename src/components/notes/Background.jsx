@@ -19,7 +19,6 @@ export default function Background({note,setCol,setHovered}) {
   
   const handleClose = () => {
     setAnchorEl(null);
-    setHovered(false);
   };
   
 
@@ -33,7 +32,6 @@ export default function Background({note,setCol,setHovered}) {
         setCol(color);
         setNotes(notes)
         setAnchorEl(null);
-        setHovered(false);
         updateNotes();
         break;
       }
@@ -47,7 +45,7 @@ export default function Background({note,setCol,setHovered}) {
   return (
     <>
     <Tooltip title="Background">
-      <IconButton  size='small' aria-describedby={id} variant="text" onClick={handleClick} ><ColorLensOutlined fontSize='small' /> </IconButton>
+      <IconButton  size='normal' aria-describedby={id} variant="text" onClick={handleClick} ><ColorLensOutlined fontSize='normal' /> </IconButton>
     </Tooltip>
       <Popover
         id={id}

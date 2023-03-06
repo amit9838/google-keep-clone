@@ -44,14 +44,14 @@ export default function FadeMenu({ menulist,note,hideCard }) {
     return (
         <div>
             <IconButton
-                size='small'
+                size='normal'
                 id="fade-button"
                 aria-controls={open ? 'fade-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                <MoreVertOutlined fontSize='small' />
+                <MoreVertOutlined fontSize='normal' />
             </IconButton>
             <MenuCus
                 id="fade-menu"
