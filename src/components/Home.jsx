@@ -24,9 +24,31 @@ function Home() {
         <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 6 }}>
           {location.pathname === '/' && <Form />}
           <Routes>
-            <Route path="/" element={<Notes />}></Route>
-            <Route path="/archives" element={<Archives />}></Route>
-            <Route path="/trash" element={<Trash />}></Route>
+            <Route path="/" element={(
+              <div>
+                <Notes />
+              </div>)
+            }></Route>
+
+            <Route path="/archives" element={(
+              <div>
+                <div style={{margin:'.2rem 0rem', color:'grey'}}>
+                  <h3>Archive Notes</h3>
+                  <hr style={{color:'lightgrey'}}/>
+                </div>
+                <Archives />
+              </div>)
+            }></Route>
+
+            <Route path="/trash" element={(
+              <div>
+                <div style={{margin:'.2rem 0rem', color:'grey'}}>
+                  <h3>Trash Notes</h3>
+                  <hr style={{color:'lightgrey'}}/>
+                </div>
+                <Trash />
+              </div>)
+            }></Route>
           </Routes>
         </Box>
       </Box>

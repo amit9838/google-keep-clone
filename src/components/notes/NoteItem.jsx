@@ -97,7 +97,7 @@ function NoteItem({ note }) {
                     <Typography sx={{ fontSize: ".8rem", color: grey[800], fontFamily: 'Inter', fontWeight: '400' }} variant='h6'>{note.description}</Typography>
 
                 </CardContent>
-                <CardActions sx={{ minHeight: "2rem" , borderTop:'1px solid lightgrey' ,padding:'.1rem .1rem'}} >
+                <CardActions sx={{ minHeight: "2rem" ,padding:'.1rem .1rem'}} >
                     {hovered && <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                         <div className='left'>
                            

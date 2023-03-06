@@ -27,7 +27,7 @@ export default function Background({note,setCol,setHovered}) {
     for(let i =0;i<notes.length;i++) {
       if(notes[i].id===note.id){
         notes[i].background = color;
-        console.log(color);
+        // console.log(color);
         note.background= color;
         setCol(color);
         setNotes(notes)
