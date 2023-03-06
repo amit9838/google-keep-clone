@@ -1,12 +1,13 @@
-import { useContext, useState,useRef,useEffect } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled'
 import { Card, CardContent, CardActions, IconButton, Typography, Tooltip } from '@mui/material'
 import { grey } from '@mui/material/colors';
-import { DeleteOutlined, ArchiveOutlined, UnarchiveOutlined,RestoreFromTrashOutlined } from '@mui/icons-material';
+import { DeleteOutlined, ArchiveOutlined, UnarchiveOutlined, RestoreFromTrashOutlined } from '@mui/icons-material';
 import FadeMenu from './FadeMenu';
 import Background from './Background';
 import { DataContext } from '../context/Dataprovider';
 
+import EditNote from './EditNote';
 
 const NoteCard = styled(Card)`
     min-width:14rem;
@@ -25,15 +26,16 @@ const NoteCard = styled(Card)`
 function NoteItem({ note }) {
     const [hovered, setHovered] = useState(true);
     const [col, setCol] = useState(note.background)
-    const { notes,setNotes,updateNotes } = useContext(DataContext);
+    const { notes, setNotes, updateNotes } = useContext(DataContext);
     const hideCard = useRef()
-
+    const [title, setTitle] = useState(note.title);
+    const [description, setDescription] = useState(note.description)
     let menulist = ['Delete Permanently', 'Share']
 
     useEffect(() => {
-    updateNotes();
-    }, [])
-    
+        updateNotes();
+    })
+
 
     const handleArchiveClick = () => {
         for (let i = 0; i < notes.length; i++) {
@@ -42,7 +44,7 @@ function NoteItem({ note }) {
                 note.status = 'archive';
                 setNotes(notes)
                 updateNotes();
-                hideCard.current.style.display='none';
+                hideCard.current.style.display = 'none';
                 break;
             }
         }
@@ -54,7 +56,7 @@ function NoteItem({ note }) {
                 note.status = 'active';
                 setNotes(notes)
                 updateNotes();
-                hideCard.current.style.display='none';
+                hideCard.current.style.display = 'none';
                 break;
             }
         }
@@ -67,7 +69,7 @@ function NoteItem({ note }) {
                 note.status = 'trash';
                 setNotes(notes)
                 updateNotes();
-                hideCard.current.style.display='none';  
+                hideCard.current.style.display = 'none';
                 break;
             }
         }
@@ -79,7 +81,7 @@ function NoteItem({ note }) {
                 note.status = 'active';
                 setNotes(notes)
                 updateNotes();
-                hideCard.current.style.display='none';  
+                hideCard.current.style.display = 'none';
                 break;
             }
         }
@@ -88,40 +90,50 @@ function NoteItem({ note }) {
 
 
 
+
     // console.log(note)
     return (
         <>
-            <NoteCard ref={hideCard} className='NoteCard'  sx={{ backgroundColor: note.background }}>
+            <NoteCard ref={hideCard} className='NoteCard' sx={{ backgroundColor: note.background }}>
                 <CardContent sx={{ padding: '.5rem .8rem' }}>
-                    <Typography variant='h6' sx={{ fontSize: "1rem", fontFamily: 'Inter', fontWeight: '500', color: grey[900] }}>{note.title}</Typography>
-                    <Typography sx={{ fontSize: ".8rem", color: grey[800], fontFamily: 'Inter', fontWeight: '400' }} variant='h6'>{note.description}</Typography>
+                    <Typography variant='h6' sx={{ fontSize: "1rem", fontFamily: 'Inter', fontWeight: '500', color: grey[900] }}>{title}</Typography>
+                    <Typography sx={{ fontSize: ".8rem", color: grey[800], fontFamily: 'Inter', fontWeight: '400' }} variant='h6'>{description}</Typography>
 
                 </CardContent>
-                <CardActions sx={{ minHeight: "2rem" ,padding:'.1rem .1rem'}} >
+                <CardActions sx={{ minHeight: "2rem", padding: '.1rem .1rem' }} >
                     {hovered && <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <div className='left'>
-                           
-                            {note.status==='archive'?
-                            <Tooltip title="Unarchive">
-                                <IconButton size='normal' onClick={handleUnarchiveClick} ><UnarchiveOutlined fontSize='' /> </IconButton>
-                            </Tooltip>
-                            :
-                            <Tooltip title="Archive">
-                                <IconButton size='normal' onClick={handleArchiveClick} ><ArchiveOutlined fontSize='' /> </IconButton>
-                            </Tooltip>}
+                        <div className='left' style={{ display: 'flex' }}>
+                            {note.status === 'active' ?
+                                <span>
+                                    <EditNote note={note} setTitle={setTitle} setDescription={setDescription} />
+                                </span>
+                                :
+                                <></>
+                            }
                             <Background note={note} setCol={setCol} setHovered={setHovered} />
-                            {note.status==='trash'?
-                            <Tooltip title="Restore">
-                                <IconButton size='normal' onClick={handleUntrashClick} ><RestoreFromTrashOutlined fontSize='normal' /> </IconButton>
-                            </Tooltip>
-                            :
-                            <Tooltip title="Move To Trash">
-                                <IconButton size='normal' onClick={handleTrashClick} ><DeleteOutlined fontSize='normal' /> </IconButton>
-                            </Tooltip>}
+                            {note.status === 'archive' ?
+                                <Tooltip title="Unarchive">
+                                    <IconButton size='normal' onClick={handleUnarchiveClick} ><UnarchiveOutlined fontSize='' /> </IconButton>
+                                </Tooltip>
+                                :
+                                <Tooltip title="Archive">
+                                    <IconButton size='normal' onClick={handleArchiveClick} ><ArchiveOutlined fontSize='' /> </IconButton>
+                                </Tooltip>}
+                            {note.status === 'trash' ?
+                                <Tooltip title="Restore">
+                                    <IconButton size='normal' onClick={handleUntrashClick} ><RestoreFromTrashOutlined fontSize='normal' /> </IconButton>
+                                </Tooltip>
+                                :
+                                <Tooltip title="Move To Trash">
+                                    <IconButton size='normal' onClick={handleTrashClick} ><DeleteOutlined fontSize='normal' /> </IconButton>
+                                </Tooltip>}
+
 
                         </div>
                         <div className='right'>
-                            <FadeMenu menulist={menulist}  note={note} hideCard={hideCard} />
+
+
+                            <FadeMenu menulist={menulist} note={note} hideCard={hideCard} />
                         </div>
                     </div>}
                 </CardActions>

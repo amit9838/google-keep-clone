@@ -65,7 +65,7 @@ export default function FadeMenu({ menulist,note,hideCard }) {
                 size="small"
             >
                 <MenuList dense disablePadding={true} >
-                    <MenuItem onClick={handleDeletePermanently} sx={{ fontFamily: 'Inter' }}>Delete Permantly</MenuItem>
+                    <MenuItem onClick={handleDeletePermanently} sx={{ fontFamily: 'Inter' }}>Delete Permanently</MenuItem>
                     <MenuItem onClick={handleClose} sx={{ fontFamily: 'Inter' }}>Share</MenuItem>
                 </MenuList>
             </MenuCus>
