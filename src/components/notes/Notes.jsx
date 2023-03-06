@@ -28,8 +28,6 @@ function Notes() {
           :
           <div></div>
         }
-     
-
       </Grid>
     </>
   )
